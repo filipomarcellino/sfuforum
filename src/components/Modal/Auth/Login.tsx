@@ -2,6 +2,8 @@ import { authModalState } from "@/src/atoms/authModalAtom";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {auth} from "../../../firebase/clientApps"
 
 type LoginProps = {};
 
@@ -11,6 +13,13 @@ const Login: React.FC<LoginProps> = () => {
     email: "",
     password: "",
   });
+
+  const [
+    signInWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useSignInWithEmailAndPassword(auth);  
 
   //Firebase logix
   const onSubmit = () => {};
