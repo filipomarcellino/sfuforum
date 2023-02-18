@@ -1,14 +1,18 @@
-import { Button, Input } from "@chakra-ui/react";
+import { authModalState } from "@/src/atoms/authModalAtom";
+import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
 
 type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
+  const setAuthModalState = useSetRecoilState(authModalState);
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
   });
 
+  //Firebase logix
   const onSubmit = () => {};
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +68,21 @@ const Login: React.FC<LoginProps> = () => {
       <Button width="100%" height="36px" mt={2} mb={2} type="submit">
         Login
       </Button>
+      <Flex fontSize='9pt' justifyContent="center">
+        <Text mr={1}>New here?</Text>
+        <Text color="blue.500" fontWeight={700} cursor="pointer" 
+          onClick={()=>
+            setAuthModalState((prev) => ({
+              ...prev,
+              view: "signup",
+            }))
+          }>SIGN UP</Text>
+      </Flex>
     </form>
   );
 };
 export default Login;
+function useRecoilState(authModalState: any) {
+  throw new Error("Function not implemented.");
+}
+
