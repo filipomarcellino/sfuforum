@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Menu, MenuButton, Button, MenuList, MenuItem, Icon, Flex, MenuDivider } from '@chakra-ui/react';
+import { Menu, MenuButton, Button, MenuList, MenuItem, Icon, Flex, MenuDivider, Text } from '@chakra-ui/react';
 import { signOut, User } from 'firebase/auth';
 import React from 'react';
 import { FaRedditSquare } from "react-icons/fa" 
@@ -29,6 +29,21 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
                 {user ? (
                     <>
                     <Icon fontSize={24} mr={1} color="gray.300" as={FaRedditSquare}/>
+                    <Flex
+                        direction="column"
+                        display={{base:"none", lg:"flex"}}
+                        fontSize="0pt"
+                        align="flex-start"
+                        mr={8}
+                    >
+                        <Text fontWeight={700}>
+                            {user?.displayName || user.email?.split("@")[0]}
+                        </Text>
+                        <Flex>
+                            <Icon as={IoSparkles} color ="brand.100" mr={1}/>
+                            <Text color="gray.400">1 Karma</Text>
+                        </Flex>
+                    </Flex>
                     </>  
                 ) : <Icon fontSize={24} color="gray.400" mr={1} as={VscAccount}/>}
                 </Flex>
@@ -66,14 +81,7 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
                     >
                         <Flex align="center">
                             <Icon as={CgProfile} mr={2} fontSize={20}/>
-                            Profile
-                        </Flex>
-                    </MenuItem>
-                    <MenuDivider/>
-                    <MenuItem fontSize="10pt" fontWeight={700} _hover={{bg:'blue.500', color:"white"}}>
-                        <Flex align="center">
-                            <Icon as={MdOutlineLogin} mr={2} fontSize={20}/>
-                            Log Out
+                            Log In / Sign Up
                         </Flex>
                     </MenuItem>
                     </>
