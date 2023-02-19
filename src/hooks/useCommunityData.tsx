@@ -35,7 +35,7 @@ const useCommunityData = () => {
                 mySnippets: snippets as CommunitySnippet[],
             }));
 
-            //console.log(snippets, "🙌🚀🚀");
+            console.log(snippets, "🙌🚀🚀");
         } catch (error : any) {
             console.log("Get My Snippet Error", error);
             setError(error.message);
@@ -100,7 +100,7 @@ const useCommunityData = () => {
           )
         batch.update(
           doc(firestore, 
-            `communities`,
+            "communities",
             communityID
             ),
             {
