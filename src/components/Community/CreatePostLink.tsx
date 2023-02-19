@@ -20,8 +20,8 @@ const CreatePostLink:React.FC = () => {
             setAuthModalState({open:true, view: "login"})
             return;
         }
-        const {communityID} = router.query
-        router.push(`/r/${communityID}/submit`)
+        const {communityId} = router.query
+        router.push(`/r/${communityId}/submit`)
     };
     return (
         <Flex
