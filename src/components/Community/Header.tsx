@@ -10,9 +10,10 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ communityData }) => {
   //read from community snippets
-  const { communityStateValue, onJoinOrLeaveCommunity } = useCommunityData();
+  const { communityStateValue, onJoinOrLeaveCommunity, loading } = useCommunityData();
+  console.log(communityStateValue.mySnippets)
   const isJoined = !!communityStateValue.mySnippets.find(
-    (item) => item.communityId === communityData.id
+    (item) => item.communityID === communityData.id
   );
   return (
     <Flex direction="column" width="100%" height="146px">
@@ -46,6 +47,7 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
               height="30px"
               pr={6}
               pl={6}
+              isLoading={loading}
               onClick={() => onJoinOrLeaveCommunity(communityData, isJoined)}
             >
               {isJoined ? "Joined" : "Join"}
@@ -55,5 +57,5 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
       </Flex>
     </Flex>
   );
-};
+};  
 export default Header;
