@@ -20,24 +20,30 @@ import React, { useState } from "react";
 import { HiLockClosed } from "react-icons/hi";
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { auth, firestore } from "@/src/firebase/clientApps";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  runTransaction,
+  serverTimestamp,
+  setDoc
+} from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 type CreateCommunityModalProps = {
   open: boolean;
   handleClose: () => void;
-  userId: string
+  userId: string;
 };
 
 const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   open,
   handleClose
 }) => {
-  const [user] = useAuthState(auth)
+  const [user] = useAuthState(auth);
   const [communityName, setCommunityName] = useState("");
   const [charsRemaning, setCharsRemaining] = useState(21);
   const [communityType, setCommunityType] = useState("public");
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,37 +70,46 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
       return setError(
         "Community names must be between 3–21 characters, and can only contain letters, numbers, or underscores."
       );
-      }
+    }
 
     setLoading(true);
 
     try {
-    // create community in firestore
-    const communityDocRef = doc(firestore, 'communities', communityName);
-    const communityDoc = await getDoc(communityDocRef);
-    
-    // check if name is not taken
-    if (communityDoc.exists()) {
-      throw new Error(`SORRY, r/${communityName} is already taken!`)
-      return;
-    }
+      // create community in firestore
+      const communityDocRef = doc(firestore, "communities", communityName);
 
-    // if valid, create community
-    await setDoc(communityDocRef, {
-      // creatorId, createdAt, NumberOfMembers, privacyType
-      creatorId: user?.uid,
-      createdAt: serverTimestamp(),
-      numberOfMembers: 1,
-      privacyType: communityType
-    })
+      await runTransaction(firestore, async (transaction) => {
+        const communityDoc = await transaction.get(communityDocRef);
+        //check is user exists
+        if (communityDoc.exists()) {
+          throw new Error(`Sorry, r/${communityName} is taken. Try another.`);
+        }
+
+        //create community
+        transaction.set(communityDocRef, {
+          // creatorId, createdAt, NumberOfMembers, privacyType
+          creatorId: user?.uid,
+          createdAt: serverTimestamp(),
+          numberOfMembers: 1,
+          privacyType: communityType
+        });
+
+        //create community snippet for user
+        transaction.set(
+          doc(firestore, `users/${user?.uid}/communitySnippets`, communityName),
+          {
+            communityID: communityName,
+            isModerator: true
+          }
+        );
+      });
     } catch (error: any) {
-      console.log('handleCreateCommunityError', error);
+      console.log("handleCreateCommunityError", error);
       setError(error.message);
     }
 
-
     setLoading(false);
-  }
+  };
 
   return (
     <>
@@ -141,7 +156,9 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               >
                 {charsRemaning} characters remaining
               </Text>
-              <Text fontSize='9pt' color='red' pt={1}>{error}</Text>
+              <Text fontSize="9pt" color="red" pt={1}>
+                {error}
+              </Text>
               <Box mt={4} mb={4}>
                 <Text fontWeight={600} fontSize={15}>
                   Community Type
@@ -208,7 +225,11 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
             >
               Cancel
             </Button>
-            <Button height="30px" onClick={handleCreateCommunity} isLoading={loading}>
+            <Button
+              height="30px"
+              onClick={handleCreateCommunity}
+              isLoading={loading}
+            >
               Create Community
             </Button>
           </ModalFooter>
