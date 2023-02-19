@@ -12,6 +12,7 @@ type RightContentProps = {
 };
 
 const RightContent:React.FC<RightContentProps> = ({user}) => {
+
   return (
     <>
     <AuthModal />
