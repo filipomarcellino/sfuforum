@@ -1,4 +1,4 @@
-import { auth } from '@/src/firebase/clientApps';
+import { auth } from '../../firebase/clientApps';
 import { Flex, Image } from '@chakra-ui/react';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -17,7 +17,7 @@ const Navbar:React.FC = () => {
       </Flex>
       {/* <Directory /> */}
       <SearchInput />
-      <RightContent user={user}/>
+      <RightContent user={user} />
   </Flex>
   )
 }
