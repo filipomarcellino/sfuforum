@@ -11,7 +11,7 @@ import {
   ModalFooter,
   useDisclosure,
   Flex,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -28,14 +28,14 @@ const AuthModal: React.FC = () => {
   const handleClose = () => {
     setModalState((prev) => ({
       ...prev,
-      open: false,
+      open: false
     }));
   };
 
   useEffect(() => {
     if (user) handleClose();
     console.log("user: ", user);
-  }, [user])
+  }, [user]);
 
   return (
     <>
@@ -63,21 +63,22 @@ const AuthModal: React.FC = () => {
               justify="center"
               width="70%"
             >
-              {modalState.view === 'login' || modalState.view === 'signup' ?
-              <>
-              <OAuthButtons/>
+              {modalState.view === "login" || modalState.view === "signup" ? (
+                <>
+                  <OAuthButtons />
+                  <Text color="gray.500" fontWeight={700}>
+                    OR
+                  </Text>
+                  <AuthInputs />
+                </>
+              ) : (
+                <ResetPassword />
+              )}
+              {/* <OAuthButtons />
               <Text color="gray.500" fontWeight={700}>
                 OR
               </Text>
-              <AuthInputs/>
-              </>
-              : 
-              // <ResetPassword/>
-              }
-            }
-              <OAuthButtons/>
-              <Text color="gray.500" fontWeight={700}>OR</Text>
-              <AuthInputs/>
+              <AuthInputs /> */}
               {/* <ResetPassword /> */}
             </Flex>
           </ModalBody>

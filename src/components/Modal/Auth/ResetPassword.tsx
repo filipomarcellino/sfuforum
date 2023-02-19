@@ -6,11 +6,7 @@ import { authModalState, ModalView } from "../../../atoms/authModalAtom";
 import { auth } from "../../../firebase/clientApps";
 import { useSetRecoilState } from "recoil";
 
-type ResetPasswordProps = {
-  toggleView: (view: ModalView) => void;
-};
-
-const ResetPassword: React.FC<ResetPasswordProps> = ({ toggleView }) => {
+const ResetPassword: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
   const [email, setEmail] = useState("");
   const [success, setSuccess] = useState(false);
