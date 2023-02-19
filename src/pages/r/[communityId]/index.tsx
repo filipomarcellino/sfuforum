@@ -3,13 +3,26 @@ import { GetServerSidePropsContext } from "next";
 import React from "react";
 import { Community } from "@/src/atoms/communitiesAtom";
 import { firestore } from "@/src/firebase/clientApps";
-import safeJsonStringify from 'safe-json-stringify'
+import safeJsonStringify from "safe-json-stringify";
+import NotFound from "@/src/components/Community/NotFound";
+import Header from "@/src/components/Community/Header";
+import PageContent from "@/src/components/Layout/PageContent";
+
 type CommunityPageProps = {
   communityData: Community;
 };
 
-const CommunityPage: React.FC<CommunityPageProps> = ({communityData}) => {
-  return <div>Welcome to  {communityData.id}</div>;
+const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
+  if (!communityData) {
+    return <NotFound/>;
+  }
+  return <>
+  <Header communityData={communityData}/>
+  <PageContent>
+    <><div>LHS</div></>
+    <><div>RHS</div></>
+  </PageContent>
+  </>
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -24,7 +37,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     return {
       props: {
-        communityData: JSON.parse(safeJsonStringify({id: communityDoc.id, ...communityDoc.data()}))
+        communityData: communityDoc.exists()
+          ? JSON.parse(
+              safeJsonStringify({ id: communityDoc.id, ...communityDoc.data() })
+            )
+          : ""
       }
     };
   } catch (error) {
