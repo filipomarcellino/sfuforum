@@ -7,15 +7,13 @@ interface PageContentProps {
 const PageContent: React.FC<PageContentProps> = ({ children }) => {
   console.log("Here is children", children);
   return (
-    <Flex justify="center" p="16px 0px" border={"1px solid red"}>
+    <Flex justify="center" p="16px 0px">
       <Flex
         width="95%"
         justify="center"
         maxWidth={"860px"}
-        border={"1px solid green"}
       >
         <Flex
-          border={"1px solid blue"}
           direction="column"
           width={{ base: "100%", md: "65%" }}
           mr={{ base: 0, md: 6 }}
@@ -24,7 +22,6 @@ const PageContent: React.FC<PageContentProps> = ({ children }) => {
         </Flex>
         {/* Right Content */}
         <Box
-          border={"1px solid orange"}
           display={{ base: "none", md: "flex" }}
           flexDirection="column"
           flexGrow={1}
