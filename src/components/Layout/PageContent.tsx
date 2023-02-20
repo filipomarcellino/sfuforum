@@ -5,7 +5,6 @@ interface PageContentProps {
   children: any;
 }
 const PageContent: React.FC<PageContentProps> = ({ children }) => {
-  console.log("Here is children", children);
   return (
     <Flex justify="center" p="16px 0px">
       <Flex

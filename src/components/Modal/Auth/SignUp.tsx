@@ -22,7 +22,6 @@ const SignUp: React.FC = () => {
   //Firebase logic
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(signUpForm.email);
     if (error) setError("");
     if (signUpForm.password !== signUpForm.confirmPassword) {
       setError("Passwords do not match");
