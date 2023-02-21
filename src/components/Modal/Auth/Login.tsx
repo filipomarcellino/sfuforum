@@ -3,10 +3,8 @@ import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import {auth} from "../../../firebase/clientApps"
+import { auth } from "../../../firebase/clientApps";
 import { FIREBASE_ERRORS } from "@/src/firebase/errors";
-
-
 
 type LoginProps = {};
 
@@ -14,27 +12,23 @@ const Login: React.FC<LoginProps> = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
   const [loginForm, setLoginForm] = useState({
     email: "",
-    password: "",
+    password: ""
   });
 
-  const [
-    signInWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useSignInWithEmailAndPassword(auth);  
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
 
   //Firebase logix
   const onSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    signInWithEmailAndPassword(loginForm.email, loginForm.password);  
+    signInWithEmailAndPassword(loginForm.email, loginForm.password);
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm((prev) => ({
       ...prev,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     }));
   };
 
@@ -52,13 +46,13 @@ const Login: React.FC<LoginProps> = () => {
         _hover={{
           bg: "white",
           border: "1px solid",
-          borderColor: "blue.500",
+          borderColor: "blue.500"
         }}
         _focus={{
           outline: "none",
           bg: "white",
           border: "1px solid",
-          borderColor: "blue.500",
+          borderColor: "blue.500"
         }}
         bg="gray.50"
       />
@@ -73,20 +67,27 @@ const Login: React.FC<LoginProps> = () => {
         _hover={{
           bg: "white",
           border: "1px solid",
-          borderColor: "blue.500",
+          borderColor: "blue.500"
         }}
         _focus={{
           outline: "none",
           bg: "white",
           border: "1px solid",
-          borderColor: "blue.500",
+          borderColor: "blue.500"
         }}
         bg="gray.50"
       />
       <Text textAlign="center" color="red" fontSize="10pt">
         {FIREBASE_ERRORS[error?.message as keyof typeof FIREBASE_ERRORS]}
       </Text>
-      <Button width="100%" height="36px" mt={2} mb={2} type="submit" isLoading={loading}>
+      <Button
+        width="100%"
+        height="36px"
+        mt={2}
+        mb={2}
+        type="submit"
+        isLoading={loading}
+      >
         Login
       </Button>
       <Flex justifyContent="center" mb={2}>
@@ -101,27 +102,29 @@ const Login: React.FC<LoginProps> = () => {
             setAuthModalState((prev) => ({
               ...prev,
               view: "resetPassword"
-            }))
+            }));
           }}
         >
           Reset
         </Text>
       </Flex>
-      <Flex fontSize='9pt' justifyContent="center">
+      <Flex fontSize="9pt" justifyContent="center">
         <Text mr={1}>New here?</Text>
-        <Text color="blue.500" fontWeight={700} cursor="pointer" 
-          onClick={()=>
+        <Text
+          color="blue.500"
+          fontWeight={700}
+          cursor="pointer"
+          onClick={() =>
             setAuthModalState((prev) => ({
               ...prev,
-              view: "signup",
+              view: "signup"
             }))
-          }>SIGN UP</Text>
+          }
+        >
+          SIGN UP
+        </Text>
       </Flex>
     </form>
   );
 };
 export default Login;
-function useRecoilState(authModalState: any) {
-  throw new Error("Function not implemented.");
-}
-

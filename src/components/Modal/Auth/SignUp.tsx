@@ -22,7 +22,6 @@ const SignUp: React.FC = () => {
   //Firebase logic
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(signUpForm.email);
     if (error) setError("");
     if (signUpForm.password !== signUpForm.confirmPassword) {
       setError("Passwords do not match");
@@ -105,9 +104,10 @@ const SignUp: React.FC = () => {
         }}
         bg="gray.50"
       />
-        <Text textAlign="center" color="red" fontSize="10pt">
-          {error || FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS]}
-        </Text>
+      <Text textAlign="center" color="red" fontSize="10pt">
+        {error ||
+          FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS]}
+      </Text>
       <Button
         width="100%"
         height="36px"

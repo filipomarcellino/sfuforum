@@ -27,7 +27,6 @@ const useCommunityData = () => {
     communityData: Community,
     isJoined: boolean
   ) => {
-    console.log("isJoined values is: ", isJoined);
     if (isJoined) {
       leaveCommunity(communityData.id);
       return;
@@ -50,7 +49,6 @@ const useCommunityData = () => {
         mySnippets: snippets as CommunitySnippet[]
       }));
 
-      console.log(snippets, "🙌🚀🚀");
     } catch (error: any) {
       console.log("Get My Snippet Error", error);
       setError(error.message);
