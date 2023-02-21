@@ -24,19 +24,3 @@ const Submit: React.FC = () => {
   );
 };
 export default Submit;
-
-const submit: React.FC = () => {
-  const [user] = useAuthState(auth);
-  return (
-    <PageContent>
-      <>
-        <Box p="14px 0px" borderBottom="1px solid" borderColor="white">
-          <Text>Create a post</Text>
-        </Box>
-        <NewPostForm user={user} />
-      </>
-      <></>
-    </PageContent>
-  );
-};
-export default submit;
