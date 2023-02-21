@@ -1,8 +1,10 @@
 import { Post } from "@/src/atoms/postAtom";
-import { Flex, Icon, Stack, Text, Image } from "@chakra-ui/react";
+import { Flex, Icon, Stack, Text, Image, Skeleton } from "@chakra-ui/react";
 import { Graduate } from "@next/font/google";
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
+import { BsChat } from "react-icons/bs";
+import { AiOutlineDelete } from "react-icons/ai";
 import {
   IoArrowDownCircleOutline,
   IoArrowDownCircleSharp,
@@ -11,6 +13,7 @@ import {
   IoArrowUpCircleSharp,
   IoBookmarkOutline
 } from "react-icons/io5";
+import { MdOutlineDelete } from "react-icons/md";
 
 type PostItemProps = {
   post: Post;
@@ -35,7 +38,7 @@ const PostItem: React.FC<PostItemProps> = ({
   onSelectPost
   //   homePage
 }) => {
-    console.log(post)
+  const [loadingImage, setLoadingImage] = useState(true);
   return (
     <Flex
       border="1px solid"
@@ -96,18 +99,60 @@ const PostItem: React.FC<PostItemProps> = ({
           <Text fontSize={"10pt"}>{post.body}</Text>
           {post.imageURL && (
             <Flex justify="center" align="center" p={2}>
-              {/* {loadingImage && (
+              {loadingImage && (
                 <Skeleton height="200px" width="100%" borderRadius={4} />
-              )} */}
+              )}
               <Image
                 src={post.imageURL}
                 maxHeight="460px"
                 alt="Post Image"
-                // display={loadingImage ? "none" : "unset"}
-                // onLoad={() => setLoadingImage(false)}
+                display={loadingImage ? "none" : "unset"}
+                onLoad={() => setLoadingImage(false)}
               />
             </Flex>
           )}
+          <Flex ml={1} mb={0.5} color="gray.500" fontWeight={600}>
+            <Flex
+              align="center"
+              p="8px 10px"
+              borderRadius={4}
+              _hover={{ bg: "gray.200" }}
+              cursor="pointer"
+            >
+              <Icon as={BsChat} mr={2} />
+              <Text fontSize="9pt">{post.numberOfComments}</Text>
+            </Flex>
+            <Flex
+              align="center"
+              p="8px 10px"
+              borderRadius={4}
+              _hover={{ bg: "gray.200" }}
+              cursor="pointer"
+            >
+              <Icon as={IoArrowRedoOutline} mr={2} />
+              <Text fontSize="9pt">Share</Text>
+            </Flex>
+            <Flex
+              align="center"
+              p="8px 10px"
+              borderRadius={4}
+              _hover={{ bg: "gray.200" }}
+              cursor="pointer"
+            >
+              <Icon as={IoBookmarkOutline} mr={2} />
+              <Text fontSize="9pt">Save</Text>
+            </Flex>
+            <Flex
+              align="center"
+              p="8px 10px"
+              borderRadius={4}
+              _hover={{ bg: "gray.200" }}
+              cursor="pointer"
+            >
+              <Icon as={AiOutlineDelete} mr={2} />
+              <Text fontSize="9pt">Delete</Text>
+            </Flex>
+          </Flex>
         </Stack>
       </Flex>
     </Flex>
