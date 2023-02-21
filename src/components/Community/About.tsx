@@ -29,7 +29,6 @@ type AboutProps = {
 };
 
 const About: React.FC<AboutProps> = ({ communityData }) => {
-  const router = useRouter();
   const [user] = useAuthState(auth);
   const selectedFieldRef = useRef<HTMLInputElement>(null);
   const { onSelectFile, selectedFile, setSelectedFile } = useSelectFile();
@@ -61,7 +60,6 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
     setUploadingImage(false);
   };
 
-  console.log(router.query);
   return (
     <Box position="sticky" top="14px">
       <Flex
@@ -111,7 +109,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
           </Flex>
           <Flex>
             <Button width={"100%"} height="30px">
-              <Link href={`/r/${router.query.communityId}/submit`}>
+              <Link href={`/r/${communityData.id}/submit`}>
                 Create Post
               </Link>
             </Button>
