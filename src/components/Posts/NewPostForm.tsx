@@ -1,5 +1,6 @@
 import { Post } from "@/src/atoms/postAtom";
 import { firestore, storage } from "@/src/firebase/clientApps";
+import useSelectFile from "@/src/hooks/useSelectFile";
 import { Alert, AlertIcon, Flex, Icon, Text } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import {
@@ -54,7 +55,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
     title: "",
     body: ""
   });
-  const [selectedFile, setSelectedFile] = useState<string>();
+  const {onSelectFile, selectedFile, setSelectedFile} = useSelectFile();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -102,18 +103,6 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
     setLoading(false);
   };
 
-  const onSelectedImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
-    if (event.target.files?.[0]) {
-      reader.readAsDataURL(event.target.files[0]);
-    }
-    reader.onload = (readerEvent) => {
-      if (readerEvent.target?.result) {
-        setSelectedFile(readerEvent.target.result as string);
-      }
-    };
-  };
-
   const onTextChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -150,7 +139,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
         {selectedTab === "Images & Video" && (
           <ImageUpload
             selectedFile={selectedFile}
-            onSelectedImage={onSelectedImage}
+            onSelectedImage={onSelectFile}
             setSelectTab={setSelectedTab}
             setSelectedFile={setSelectedFile}
           />
