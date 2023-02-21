@@ -121,7 +121,5 @@ const Login: React.FC<LoginProps> = () => {
   );
 };
 export default Login;
-function useRecoilState(authModalState: any) {
-  throw new Error("Function not implemented.");
-}
+
 

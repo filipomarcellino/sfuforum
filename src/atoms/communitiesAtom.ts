@@ -29,7 +29,7 @@ interface CommunityState {
   // visitedCommunities: {
   //   [key: string]: Community;
   // };
-  // currentCommunity: Community;
+  currentCommunity?: Community;
 }
 
 // export const defaultCommunity: Community = {
