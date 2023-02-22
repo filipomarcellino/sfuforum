@@ -1,10 +1,10 @@
 import React from "react";
 import {
-  Stack,
   Box,
   SkeletonText,
   Skeleton,
   useColorModeValue,
+  Stack
 } from "@chakra-ui/react";
 
 const PostLoader: React.FC = () => {
