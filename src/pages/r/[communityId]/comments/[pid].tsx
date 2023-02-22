@@ -1,18 +1,21 @@
 import { Post } from "@/src/atoms/postAtom";
+import About from "@/src/components/Community/About";
 import PageContent from "@/src/components/Layout/PageContent";
 import PostItem from "@/src/components/Posts/PostItem";
 import { auth, firestore } from "@/src/firebase/clientApps";
+import useCommunityData from "@/src/hooks/useCommunityData";
 import usePosts from "@/src/hooks/usePosts";
 import { doc, getDoc } from "firebase/firestore";
-import router from "next/router";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const PostPage: React.FC = () => {
+  const router = useRouter();
   const [user] = useAuthState(auth);
   const { postStateValue, setPostStateValue, onDeletePost, onVote } =
     usePosts();
-
+  const { communityStateValue } = useCommunityData();
   const fetchPost = async (postId: string) => {
     try {
       const postDocRef = doc(firestore, "posts", postId);
@@ -48,7 +51,11 @@ const PostPage: React.FC = () => {
           />
         )}
       </>
-      <></>
+      <>
+        {communityStateValue.currentCommunity && (
+          <About communityData={communityStateValue.currentCommunity} />
+        )}
+      </>
     </PageContent>
   );
 };
