@@ -8,6 +8,7 @@ const PageContent: React.FC<PageContentProps> = ({ children }) => {
   return (
     <Flex justify="center" p="16px 0px">
       <Flex width="95%" justify="center" maxWidth={"860px"}>
+        {/* Left Content */}
         <Flex
           direction="column"
           width={{ base: "100%", md: "65%" }}
