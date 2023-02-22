@@ -1,9 +1,18 @@
 import { WriteBatch } from "@google-cloud/firestore";
-import { doc, deleteDoc, writeBatch, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  doc,
+  deleteDoc,
+  writeBatch,
+  collection,
+  getDocs,
+  query,
+  where
+} from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { authModalState } from "../atoms/authModalAtom";
 import { communityState } from "../atoms/communitiesAtom";
 import { Post, postState, PostVote } from "../atoms/postAtom";
 import { auth, firestore, storage } from "../firebase/clientApps";
@@ -11,10 +20,15 @@ import { auth, firestore, storage } from "../firebase/clientApps";
 const usePosts = () => {
   const [postStateValue, setPostStateValue] = useRecoilState(postState);
   const [user] = useAuthState(auth);
-  const currentCommunity = useRecoilValue(communityState).currentCommunity
+  const currentCommunity = useRecoilValue(communityState).currentCommunity;
+  const setAuthModalState = useSetRecoilState(authModalState);
 
   const onVote = async (post: Post, vote: number, communityId: string) => {
     //open auth modal if user is not loged in
+    if (!user?.uid) {
+      setAuthModalState({ open: true, view: "login" });
+      return;
+    }
     try {
       const { voteStatus } = post;
       const existingVote = postStateValue.postVotes.find(
@@ -135,18 +149,28 @@ const usePosts = () => {
     const postVoteDocs = await getDocs(postVotesQuarry);
     const postVotes = postVoteDocs.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data(),
+      ...doc.data()
     }));
     setPostStateValue((prev) => ({
       ...prev,
-      postVotes: postVotes as PostVote[],
+      postVotes: postVotes as PostVote[]
     }));
   };
 
   useEffect(() => {
     if (!user || !currentCommunity?.id) return;
     getCommunityPostVotes(currentCommunity?.id);
-  }, [!user, currentCommunity]);
+  }, [user, currentCommunity]);
+
+  useEffect(() => {
+    if (!user) {
+      // if check user ?
+      setPostStateValue((prev) => ({
+        ...prev,
+        postVotes: []
+      }));
+    }
+  }, [user]);
 
   return {
     postStateValue,
