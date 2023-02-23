@@ -1,13 +1,34 @@
-import { Post } from "@/src/atoms/postAtom";
+import { Post, postState } from "@/src/atoms/postAtom";
 import { Box, Flex } from "@chakra-ui/react";
+import { firestore } from "@/src/firebase/clientApps";
 import { User } from "firebase/auth";
+import {
+  collection,
+  doc,
+  increment,
+  serverTimestamp,
+  Timestamp,
+  writeBatch
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import CommentInput from "./CommentInput";
+import { useSetRecoilState } from "recoil";
 
 type CommentsProps = {
   user: User;
   selectedPost: Post | null;
   communityId: string;
+};
+
+export type Comment = {
+  id?: string;
+  creatorId: string;
+  creatorDisplayText: string;
+  communityId: string;
+  postId: string;
+  postTitle: string;
+  text: string;
+  createdAt: Timestamp;
 };
 
 const Comments: React.FC<CommentsProps> = ({
@@ -16,11 +37,61 @@ const Comments: React.FC<CommentsProps> = ({
   communityId
 }) => {
   const [commentText, setCommentText] = useState("");
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [createLoading, setCreateLoading] = useState(false);
-  const onCreateComment = async (commentText: string) => {};
-  const onDeleteComment = async (comment: any) => {};
+  const setPostState = useSetRecoilState(postState);
+
+  const onCreateComment = async () => {
+    try {
+      setCreateLoading(true);
+
+      //create comment
+      const batch = writeBatch(firestore);
+
+      const commentDocRef = doc(collection(firestore, "comments"));
+
+      const newComment: Comment = {
+        id: commentDocRef.id,
+        creatorId: user.uid,
+        creatorDisplayText: user.email!.split("@")[0],
+        communityId,
+        postId: selectedPost?.id!,
+        postTitle: selectedPost?.title!,
+        text: commentText,
+        createdAt: serverTimestamp() as Timestamp
+      };
+
+      batch.set(commentDocRef, newComment);
+
+      //update post attribute = numberOfComments
+      const postDocRef = doc(firestore, "posts", selectedPost?.id!);
+      batch.update(postDocRef, {
+        numberOfComments: increment(1)
+      });
+
+      await batch.commit();
+
+      //update frontend recoil state
+      setCommentText("");
+      setComments((prev) => [newComment, ...prev]);
+      setPostState((prev) => ({
+        ...prev,
+        selectedPost: {
+          ...prev.selectedPost,
+          numberOfComments: prev.selectedPost?.numberOfComments! + 1
+        } as Post
+      }));
+    } catch (error) {
+      console.log("onCreateCommentError", error);
+    }
+    setCreateLoading(false);
+  };
+  const onDeleteComment = async (comment: any) => {
+    //create comment
+    //update post attribute = numberOfComments
+    //update frontend recoil state
+  };
   const getPostComments = async () => {};
 
   useEffect(() => {
