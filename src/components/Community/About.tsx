@@ -2,19 +2,18 @@ import { Community, communityState } from "@/src/atoms/communitiesAtom";
 import { auth, firestore, storage } from "@/src/firebase/clientApps";
 import useSelectFile from "@/src/hooks/useSelectFile";
 import {
-    Box,
-    Button,
-    Divider,
-    Flex,
-    Icon, Image,
-    Spinner, Stack,
-    Text
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Icon, Image,
+  Spinner, Stack,
+  Text
 } from "@chakra-ui/react";
 import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import moment from "moment";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FaReddit } from "react-icons/fa";
@@ -31,7 +30,7 @@ type AboutProps = {
 const About: React.FC<AboutProps> = ({ communityData }) => {
   const [user] = useAuthState(auth);
   const selectedFieldRef = useRef<HTMLInputElement>(null);
-  const { onSelectFile, selectedFile, setSelectedFile } = useSelectFile();
+  const { onSelectFile, selectedFile } = useSelectFile();
   const [uploadingImage, setUploadingImage] = useState(false);
   const setCommunityStateValue = useSetRecoilState(communityState)
 

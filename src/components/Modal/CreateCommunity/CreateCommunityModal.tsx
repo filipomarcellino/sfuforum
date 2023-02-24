@@ -1,35 +1,18 @@
-import {
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  Box,
-  Divider,
-  Text,
-  Input,
-  Stack,
-  Checkbox,
-  Flex,
-  Icon
-} from "@chakra-ui/react";
-import React, { useState } from "react";
-import { HiLockClosed } from "react-icons/hi";
-import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { auth, firestore } from "@/src/firebase/clientApps";
-import {
-  doc,
-  getDoc,
-  runTransaction,
-  serverTimestamp,
-  setDoc
-} from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useRouter } from "next/router";
 import useDirectory from "@/src/hooks/useDirectory";
+import {
+  Box, Button, Checkbox, Divider, Flex,
+  Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text
+} from "@chakra-ui/react";
+import {
+  doc, runTransaction,
+  serverTimestamp
+} from "firebase/firestore";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
+import { HiLockClosed } from "react-icons/hi";
 
 type CreateCommunityModalProps = {
   open: boolean;

@@ -1,21 +1,21 @@
 import {
-    Box,
-    Button,
-    Flex,
-    Icon,
-    Image,
-    Skeleton,
-    SkeletonCircle,
-    Stack,
-    Text,
-  } from "@chakra-ui/react";
-  import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-  import Link from "next/link";
-  import React, { useEffect, useState } from "react";
-  import { FaReddit } from "react-icons/fa";
-  import { Community } from "../../atoms/communitiesAtom";
-  import { firestore } from "../../firebase/clientApps";
-  import useCommunityData from "../../hooks/useCommunityData";
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Image,
+  Skeleton,
+  SkeletonCircle,
+  Stack,
+  Text
+} from "@chakra-ui/react";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { FaReddit } from "react-icons/fa";
+import { Community } from "../../atoms/communitiesAtom";
+import { firestore } from "../../firebase/clientApps";
+import useCommunityData from "../../hooks/useCommunityData";
   
   type RecommendationsProps = {};
   

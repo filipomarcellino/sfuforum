@@ -1,14 +1,9 @@
-import { WriteBatch } from "@google-cloud/firestore";
 import {
-  doc,
-  deleteDoc,
-  writeBatch,
-  collection,
-  getDocs,
+  collection, deleteDoc, doc, getDocs,
   query,
-  where
+  where, writeBatch
 } from "firebase/firestore";
-import { ref, deleteObject } from "firebase/storage";
+import { deleteObject, ref } from "firebase/storage";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";

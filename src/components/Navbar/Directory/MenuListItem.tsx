@@ -1,5 +1,5 @@
 import useDirectory from "@/src/hooks/useDirectory";
-import { Flex, Icon, MenuItem, Image } from "@chakra-ui/react";
+import { Flex, Icon, Image, MenuItem } from "@chakra-ui/react";
 import React from "react";
 import { IconType } from "react-icons";
 

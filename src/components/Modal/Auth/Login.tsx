@@ -1,12 +1,13 @@
 import { authModalState } from "@/src/atoms/authModalAtom";
+import { FIREBASE_ERRORS } from "@/src/firebase/errors";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useSetRecoilState } from "recoil";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useSetRecoilState } from "recoil";
 import { auth } from "../../../firebase/clientApps";
-import { FIREBASE_ERRORS } from "@/src/firebase/errors";
 
-type LoginProps = {};
+type LoginProps = {
+};
 
 const Login: React.FC<LoginProps> = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
@@ -19,7 +20,7 @@ const Login: React.FC<LoginProps> = () => {
     useSignInWithEmailAndPassword(auth);
 
   //Firebase logix
-  const onSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     signInWithEmailAndPassword(loginForm.email, loginForm.password);

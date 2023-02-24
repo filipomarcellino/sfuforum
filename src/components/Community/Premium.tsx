@@ -1,5 +1,5 @@
+import { Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-import { Flex, Icon, Text, Stack, Button } from "@chakra-ui/react";
 import { GiCheckedShield } from "react-icons/gi";
 
 const Premium: React.FC = () => {

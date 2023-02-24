@@ -1,15 +1,15 @@
-import { auth } from "../../firebase/clientApps";
+import { defaultMenuItem } from "@/src/atoms/DirectoryMenuAtom";
+import useDirectory from "@/src/hooks/useDirectory";
 import { Flex, Image } from "@chakra-ui/react";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/clientApps";
+import Directory from "./Directory/Directory";
 import RightContent from "./RightContent/RightContent";
 import SearchInput from "./SearchInput";
-import Directory from "./Directory/Directory";
-import useDirectory from "@/src/hooks/useDirectory";
-import { defaultMenuItem } from "@/src/atoms/DirectoryMenuAtom";
 
 const Navbar: React.FC = () => {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const { onSelectMenuItem } = useDirectory();
   return (
     <Flex
