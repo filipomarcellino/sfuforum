@@ -6,8 +6,6 @@ import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase/clientApps";
 import { FIREBASE_ERRORS } from "@/src/firebase/errors";
 
-type SignUpProps = {};
-
 const SignUp: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
   const [signUpForm, setSignUpForm] = useState({
@@ -16,7 +14,7 @@ const SignUp: React.FC = () => {
     confirmPassword: ""
   });
   const [error, setError] = useState("");
-  const [createUserWithEmailAndPassword, user, loading, userError] =
+  const [createUserWithEmailAndPassword, _user, loading, userError] =
     useCreateUserWithEmailAndPassword(auth);
 
   //Firebase logic
