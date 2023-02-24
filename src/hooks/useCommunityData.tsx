@@ -147,7 +147,8 @@ const useCommunityData = () => {
     if (!user) {
       setCommunityStateValue((prev) => ({
         ...prev,
-        mySnippets: []
+        mySnippets: [],
+        snippetsFetched: false
       }));
       return;
     }
