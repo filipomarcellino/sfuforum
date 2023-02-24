@@ -1,3 +1,5 @@
+Live App: sfure.vercell.app
+
 Features are identical to that of reddit:
 1. user login/signup authentication
 2. create community
