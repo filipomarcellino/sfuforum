@@ -22,7 +22,7 @@ const useCommunityData = () => {
   const [communityStateValue, setCommunityStateValue] =
     useRecoilState(communityState);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [_error, setError] = useState("");
   const router = useRouter();
 
   const onJoinOrLeaveCommunity = (
