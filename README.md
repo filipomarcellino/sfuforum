@@ -1,4 +1,4 @@
-Live App: sfure.vercell.app
+Live App: http://sfure.vercell.app
 
 Features are identical to that of reddit:
 1. user login/signup authentication
