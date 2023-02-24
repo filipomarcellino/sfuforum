@@ -16,7 +16,7 @@ const Login: React.FC<LoginProps> = () => {
     password: ""
   });
 
-  const [signInWithEmailAndPassword, user, loading, error] =
+  const [signInWithEmailAndPassword, _user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
   //Firebase logix
