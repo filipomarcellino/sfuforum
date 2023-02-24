@@ -11,6 +11,8 @@ import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Post, PostVote } from "../atoms/postAtom";
 import CreatePostLink from "../components/Community/CreatePostLink";
+import PersonalHome from "../components/Community/PersonalHome";
+import Premium from "../components/Community/Premium";
 import Reccomendations from "../components/Community/Reccomendations";
 import PageContent from "../components/Layout/PageContent";
 import PostItem from "../components/Posts/PostItem";
@@ -141,8 +143,12 @@ const Home: React.FC = () => {
           </Stack>
         )}
       </>
-      <> 
-      <Reccomendations/>
+      <>
+        <Stack spacing={5}>
+          <Reccomendations />
+          <Premium />
+          <PersonalHome />
+        </Stack>
       </>
     </PageContent>
   );
