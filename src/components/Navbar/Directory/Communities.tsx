@@ -5,7 +5,7 @@ import { MenuItem, Flex, Icon, Box, Text } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import { communityState } from "@/src/atoms/communitiesAtom";
 import MenuListItem from "./MenuListItem";
-import { FaReddit } from "react-icons/fa";
+import { RiCommunityLine } from "react-icons/ri";
 
 type CommunitiesProps = {};
 
@@ -22,10 +22,10 @@ const Communities: React.FC<CommunitiesProps> = () => {
         {mySnippets.filter(snippet=>snippet.isModerator).map((snippet) => (
           <MenuListItem
             key={snippet.communityId}
-            icon={FaReddit}
-            displayText={`r/${snippet.communityId}`}
-            link={`/r/${snippet.communityId}`}
-            iconColor="blue.500"
+            icon={RiCommunityLine}
+            displayText={`${snippet.communityId}`}
+            link={`/${snippet.communityId}`}
+            iconColor="brand.300"
             imageURL={snippet.imageURL}
           />
         ))}
@@ -48,9 +48,9 @@ const Communities: React.FC<CommunitiesProps> = () => {
         {mySnippets.map((snippet) => (
           <MenuListItem
             key={snippet.communityId}
-            icon={FaReddit}
-            displayText={`r/${snippet.communityId}`}
-            link={`/r/${snippet.communityId}`}
+            icon={RiCommunityLine}
+            displayText={`${snippet.communityId}`}
+            link={`/${snippet.communityId}`}
             iconColor="brand.100"
             imageURL={snippet.imageURL}
           />

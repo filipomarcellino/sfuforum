@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BsLink45Deg } from "react-icons/bs";
-import { FaReddit } from "react-icons/fa";
+import { Image } from "@chakra-ui/react";
 import { IoImageOutline } from "react-icons/io5";
 import { useSetRecoilState } from "recoil";
 
@@ -25,7 +25,7 @@ const CreatePostLink: React.FC = () => {
     const { communityId } = router.query;
 
     if (communityId) {
-      router.push(`/r/${communityId}/submit`);
+      router.push(`/${communityId}/submit`);
       return;
     }
     toggleMenuOpen();
@@ -42,7 +42,6 @@ const CreatePostLink: React.FC = () => {
       p={2}
       mb={4}
     >
-      <Icon as={FaReddit} fontSize={36} color="gray.300" mr={4} />
       <Input
         placeholder="Create Post"
         fontSize="10pt"

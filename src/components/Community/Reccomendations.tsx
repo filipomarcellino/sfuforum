@@ -12,7 +12,7 @@ import {
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { FaReddit } from "react-icons/fa";
+import { RiCommunityLine } from "react-icons/ri";
 import { Community } from "../../atoms/communitiesAtom";
 import { firestore } from "../../firebase/clientApps";
 import useCommunityData from "../../hooks/useCommunityData";
@@ -63,16 +63,13 @@ import useCommunityData from "../../hooks/useCommunityData";
           align="flex-end"
           color="white"
           p="6px 10px"
-          bg="blue.500"
+          bg="brand.100"
           height="70px"
           borderRadius="4px 4px 0px 0px"
           fontWeight={600}
-          bgImage="url(/images/recCommsArt.png)"
-          backgroundSize="cover"
-          bgGradient="linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)),
-          url('images/recCommsArt.png')"
+
         >
-          Top Communities
+          List of classes
         </Flex>
         <Flex direction="column">
           {loading ? (
@@ -97,7 +94,7 @@ import useCommunityData from "../../hooks/useCommunityData";
                   (snippet) => snippet.communityId === item.id
                 );
                 return (
-                  <Link key={item.id} href={`/r/${item.id}`}>
+                  <Link key={item.id} href={`/${item.id}`}>
                     <Flex
                       position="relative"
                       align="center"
@@ -121,9 +118,9 @@ import useCommunityData from "../../hooks/useCommunityData";
                             />
                           ) : (
                             <Icon
-                              as={FaReddit}
+                              as={RiCommunityLine}
                               fontSize={30}
-                              color="brand.100"
+                              color="brand.300"
                               mr={2}
                             />
                           )}
@@ -133,7 +130,7 @@ import useCommunityData from "../../hooks/useCommunityData";
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                             }}
-                          >{`r/${item.id}`}</span>
+                          >{`${item.id}`}</span>
                         </Flex>
                       </Flex>
                       <Box position="absolute" right="10px">

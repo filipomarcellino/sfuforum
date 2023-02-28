@@ -1,10 +1,10 @@
 import { authModalState } from "@/src/atoms/authModalAtom";
 import { auth } from "@/src/firebase/clientApps";
 import useDirectory from "@/src/hooks/useDirectory";
-import { Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
+import { Button, Flex, Stack, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { FaReddit } from "react-icons/fa";
+import { Image } from "@chakra-ui/react";
 import { useSetRecoilState } from "recoil";
 import CreateCommunityModal from "../Modal/CreateCommunity/CreateCommunityModal";
 
@@ -39,22 +39,40 @@ const PersonalHome: React.FC = () => {
           align="flex-end"
           color="white"
           p="6px 10px"
-          bg="blue.500"
-          height="34px"
+          bg="brand.100"
+          height="50px"
           borderRadius="4px 4px 0px 0px"
           fontWeight={600}
-          bgImage="url(/images/redditPersonalHome.png)"
           backgroundSize="cover"
-        ></Flex>
+        >
+          Dashboard
+        </Flex>
         <Flex direction="column" p="12px">
           <Flex align="center" mb={2}>
-            <Icon as={FaReddit} fontSize={50} color="brand.100" mr={2} />
-            <Text fontWeight={600}>Home</Text>
+            <Flex
+              align="center"
+              width={"auto"}
+              mr={2}
+              bg={"brand.300"}
+            >
+              <Image src="/images/SFU-block-logo.svg" height="33px" />
+              <Text
+                fontStyle={"italic"}
+                paddingTop={"9px"}
+                paddingRight={"6px"}
+                paddingLeft={"4px"}
+                fontWeight="400"
+                textColor={"white"}
+              >
+                Forum
+              </Text>
+            </Flex>{" "}
+            <Text marginLeft={"10px"} fontWeight={600}>
+              Home
+            </Text>
           </Flex>
           <Stack spacing={3}>
-            <Text fontSize="9pt">
-              Your personal Reddit frontpage, built for you.
-            </Text>
+            <Text fontSize="9pt">Your personal SFU connect home page</Text>
             <Button onClick={onClickPost} height="30px">
               Create Post
             </Button>
@@ -63,7 +81,7 @@ const PersonalHome: React.FC = () => {
               variant="outline"
               height="30px"
             >
-              Create Community
+              Create New Class
             </Button>
           </Stack>
         </Flex>

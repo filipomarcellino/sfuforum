@@ -23,7 +23,7 @@ import {
   IoBookmarkOutline
 } from "react-icons/io5";
 import { useRouter } from "next/router";
-import { FaReddit } from "react-icons/fa";
+import { RiCommunityLine } from "react-icons/ri";
 import Link from "next/link";
 
 type PostItemProps = {
@@ -68,7 +68,7 @@ const PostItem: React.FC<PostItemProps> = ({
       }
 
       if (singlePostPage) {
-        router.push(`/r/${post.communityId}`);
+        router.push(`/${post.communityId}`);
       }
     } catch (error: any) {
       setError(error.message);
@@ -116,7 +116,7 @@ const PostItem: React.FC<PostItemProps> = ({
               ? IoArrowDownCircleSharp
               : IoArrowDownCircleOutline
           }
-          color={userVoteValue === -1 ? "#4379ff" : "gray.400"}
+          color={userVoteValue === -1 ? "brand.300" : "gray.400"}
           fontSize={22}
           onClick={(event) => onVote(event, post, -1, post.communityId)}
           cursor="pointer"
@@ -141,14 +141,19 @@ const PostItem: React.FC<PostItemProps> = ({
                     mr={2}
                   />
                 ) : (
-                  <Icon as={FaReddit} fontSize="18pt" mr={1} color="blue.500" />
+                  <Icon
+                    as={RiCommunityLine}
+                    fontSize="18pt"
+                    mr={1}
+                    color="brand.300"
+                  />
                 )}
-                <Link href={`r/${post.communityId}`}>
+                <Link href={`${post.communityId}`}>
                   <Text
                     fontWeight={700}
                     _hover={{ textDecoration: "underline" }}
                     onClick={(event) => event.stopPropagation()}
-                  >{`r/${post.communityId}`}</Text>
+                  >{`${post.communityId}`}</Text>
                 </Link>
                 <Icon as={BsDot} color="gray.500" fontSize={8} />
               </>

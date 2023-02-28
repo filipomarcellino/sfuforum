@@ -1,6 +1,6 @@
 import { defaultMenuItem } from "@/src/atoms/DirectoryMenuAtom";
 import useDirectory from "@/src/hooks/useDirectory";
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/clientApps";
@@ -20,20 +20,18 @@ const Navbar: React.FC = () => {
     >
       <Flex
         align="center"
-        width={{ base: "40px", md: "auto" }}
-        mr={{ base: 0, md: 2 }}
+        width={"auto"}
+        mr={2}
         onClick={() => onSelectMenuItem(defaultMenuItem)}
         cursor="pointer"
+        bg={"brand.300"}
       >
-        <Image src="/images/redditFace.svg" height="30px" />
-        <Image
-          src="/images/redditText.svg"
-          height="46px"
-          display={{ base: "none", md: "unset" }}
-        />
+
+        <Image src="/images/SFU-block-logo.svg" height="32px" />
+        <Text fontStyle={"italic"} paddingTop={"9px"} paddingRight={"6px"} paddingLeft={"4px"} fontWeight="400" textColor={"white"} >Forum</Text>
       </Flex>
-      {user && <Directory />}
       <SearchInput user={user} />
+      {user && <Directory />}
       <RightContent user={user} />
     </Flex>
   );

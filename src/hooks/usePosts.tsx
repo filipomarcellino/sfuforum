@@ -1,7 +1,11 @@
 import {
-  collection, deleteDoc, doc, getDocs,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
   query,
-  where, writeBatch
+  where,
+  writeBatch
 } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { useRouter } from "next/router";
@@ -136,7 +140,7 @@ const usePosts = () => {
       ...prev,
       selectedPost: post
     }));
-    router.push(`/r/${post.communityId}/comments/${post.id}`);
+    router.push(`/${post.communityId}/comments/${post.id}`);
   };
   const onDeletePost = async (post: Post): Promise<boolean> => {
     try {

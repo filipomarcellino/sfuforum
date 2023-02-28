@@ -3,7 +3,6 @@ import { User } from "firebase/auth";
 import React from "react";
 import AuthModal from "../../Modal/Auth/AuthModal";
 import AuthButtons from "./AuthButtons";
-import Icons from "./Icons";
 import UserMenu from "./UserMenu";
 
 type RightContentProps = {
@@ -15,7 +14,7 @@ const RightContent: React.FC<RightContentProps> = ({ user }) => {
     <>
       <AuthModal />
       <Flex justify="center" align="center">
-        {user ? <Icons /> : <AuthButtons />}
+        {!user && <AuthButtons />}
         <UserMenu user={user} />
       </Flex>
     </>

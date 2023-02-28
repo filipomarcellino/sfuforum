@@ -16,7 +16,7 @@ import moment from "moment";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { FaReddit } from "react-icons/fa";
+import { RiCommunityLine } from "react-icons/ri";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { RiCakeLine } from "react-icons/ri";
 import { useSetRecoilState } from "recoil";
@@ -64,13 +64,13 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
       <Flex
         justify="space-between"
         align="center"
-        bg="blue.400"
+        bg="brand.100"
         color="white"
         p={3}
         borderRadius="4px 4px 0px 0px"
       >
         <Text fontSize="10pt" fontWeight={700}>
-          About Community
+          About Class
         </Text>
         <Icon as={HiOutlineDotsHorizontal} cursor="pointer" />
       </Flex>
@@ -108,7 +108,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
           </Flex>
           <Flex>
             <Button width={"100%"} height="30px">
-              <Link href={`/r/${communityData.id}/submit`}>
+              <Link href={`/${communityData.id}/submit`}>
                 Create Post
               </Link>
             </Button>
@@ -135,7 +135,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
                     />
                   ) : (
                     <Icon
-                      as={FaReddit}
+                      as={RiCommunityLine}
                       fontSize={40}
                       color="brand.100"
                       mr={2}

@@ -1,13 +1,24 @@
 import { auth, firestore } from "@/src/firebase/clientApps";
 import useDirectory from "@/src/hooks/useDirectory";
 import {
-  Box, Button, Checkbox, Divider, Flex,
-  Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text
+  Box,
+  Button,
+  Checkbox,
+  Divider,
+  Flex,
+  Icon,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+  Text
 } from "@chakra-ui/react";
-import {
-  doc, runTransaction,
-  serverTimestamp
-} from "firebase/firestore";
+import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -25,7 +36,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
 }) => {
   const [user] = useAuthState(auth);
   const [communityName, setCommunityName] = useState("");
-  const [charsRemaning, setCharsRemaining] = useState(21);
+  const [charsRemaning, setCharsRemaining] = useState(10);
   const [communityType, setCommunityType] = useState("public");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,11 +44,11 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   const { toggleMenuOpen } = useDirectory();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.length > 21) {
+    if (event.target.value.length > 10) {
       return;
     }
     setCommunityName(event.target.value);
-    setCharsRemaining(21 - event.target.value.length);
+    setCharsRemaining(10 - event.target.value.length);
   };
 
   const onCommunityTypeChange = (
@@ -54,7 +65,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
 
     if (format.test(communityName) || communityName.length < 3) {
       return setError(
-        "Community names must be between 3–21 characters, and can only contain letters, numbers, or underscores."
+        "Community names must be between 3–10 characters, and can only contain letters, numbers, or underscores."
       );
     }
 
@@ -68,7 +79,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
         const communityDoc = await transaction.get(communityDocRef);
         //check is user exists
         if (communityDoc.exists()) {
-          throw new Error(`Sorry, r/${communityName} is taken. Try another.`);
+          throw new Error(`Sorry, ${communityName} is taken. Try another.`);
         }
 
         //create community
@@ -91,7 +102,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
       });
       handleClose();
       toggleMenuOpen();
-      router.push(`r/${communityName}`);
+      router.push(`${communityName}`);
     } catch (error: any) {
       console.log("handleCreateCommunityError", error);
       setError(error.message);
@@ -111,17 +122,17 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
             fontSize={15}
             padding={3}
           >
-            Create a community
+            Create a new class
           </ModalHeader>
           <Box pl={3} pr={3}>
             <Divider />
             <ModalCloseButton />
             <ModalBody display="flex" flexDirection="column" padding="10px 0px">
               <Text fontWeight={600} fontSize={15}>
-                Name
+                Class code
               </Text>
               <Text fontSize={11} color="gray.500">
-                Community names including capitalization cannot be changed
+                Class code cannot be changed
               </Text>
               <Text
                 position="relative"
@@ -129,14 +140,11 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                 left="10px"
                 width="20px"
                 color="gray.400"
-              >
-                r/
-              </Text>
+              ></Text>
               <Input
                 position="relative"
                 value={communityName}
                 size="sm"
-                pl="22px"
                 onChange={handleChange}
               ></Input>
               <Text
@@ -150,7 +158,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               </Text>
               <Box mt={4} mb={4}>
                 <Text fontWeight={600} fontSize={15}>
-                  Community Type
+                  Class Type
                 </Text>
 
                 <Stack spacing={2}>
@@ -158,6 +166,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                     name="public"
                     isChecked={communityType === "public"}
                     onChange={onCommunityTypeChange}
+                    colorScheme="red"
                   >
                     <Flex align="center">
                       <Icon as={BsFillPersonFill} color="gray.500" mr={2} />
@@ -173,6 +182,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                     name="restricted"
                     isChecked={communityType === "restricted"}
                     onChange={onCommunityTypeChange}
+                    colorScheme="red"
                   >
                     <Flex align="center">
                       <Icon as={BsFillEyeFill} color="gray.500" mr={2} />
@@ -189,6 +199,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                     name="private"
                     isChecked={communityType === "private"}
                     onChange={onCommunityTypeChange}
+                    colorScheme="red"
                   >
                     <Flex align="center">
                       <Icon as={HiLockClosed} color="gray.500" mr={2} />

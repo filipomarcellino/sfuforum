@@ -8,6 +8,8 @@ export const theme = extendTheme({
   colors: {
     brand: {
       100: "#962B2D",
+      200: "#cc2c39",
+      300: "#54585A",
       900: "#1a202c"
     }
   },
